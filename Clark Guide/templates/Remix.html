@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Clark Guide</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+
+
+
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+V3hNtIcedLrY/UHVvKK+BgLdSoj7kzxhRKnbc" crossorigin="anonymous"></script>
+
+
+
+
+    <style>
+        .round{
+        border-radius: 10px;
+        text-shadow: 2px 2px 4px #000;
+        text-decoration: solid;
+   
+        }
+        .jumbotron {
+        background: linear-gradient(rgba(10,0,0,.6), rgba(0,0,0,.6)), url('https://upload.wikimedia.org/wikipedia/en/thumb/0/0c/Clark_University_seal.svg/1200px-Clark_University_seal.svg.png') center center/cover no-repeat fixed;
+        color: #fff;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+      }
+
+
+
+
+      .scroll {
+        height: 100px;
+        overflow: auto;
+        white-space: normal;
+      }
+
+
+      .chat-history{
+        height: 200px;
+      }
+
+	.cu{
+	    padding: 6px 10px 7px;
+  border-radius: 10px 10px 10px 0;
+  background: rgba(0, 0, 0, 0.3);
+  margin: 8px 0;
+  font-size: 14px;
+  line-height: 1.4;
+  margin-left: 35px;
+  position: relative;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+	}
+    </style>
+</head>
+<body>
+    <div class="jumbotron">
+        <div class="container mt-5" >
+            <div class="round text-center text-blue">
+                <h1>Clark Assistant</h1>
+                <div class="scroll">
+                  <div id="chat-log-user" class="cu"></div>
+                <div id="chat-log" class="chat-history">
+                <div id="output"></div>
+                </div>
+                </div>
+                <input type="text" id="input-box">
+            <div class="form-group text-center">
+            <button type="button" id="send-button" class="btn btn-info mt-3">Send</button>
+           
+            <button type="button" class="btn btn-info mt-3" id="start-btn">Speak</button>
+            <button type="button" id="stop-btn" class="btn btn-info mt-3">Stop</button>
+            <!--<div id="chat-log"></div>-->
+           
+            </div>
+            </div>
+           
+               
+              </div>
+       
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+   
+   
+<style>
+#input-box {
+    width: 80%;
+    height: 50px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+}
+</style>
+    <script>
+        // Get references to UI elements
+      var startBtn = document.getElementById("start-btn");
+            var chatLog = document.getElementById("chat-log");
+            var chatLogUser = document.getElementById("chat-log-user");
+        const inputBox = document.querySelector('#input-box');
+        const sendButton = document.querySelector('#send-button');
+        const outputBox = document.querySelector('#output');
+      var recognition = new webkitSpeechRecognition();
+      recognition.continuous = false;
+      recognition.lang = 'en-US';
+      recognition.interimResults = false;
+      recognition.maxAlternatives = 1;
+      startBtn.addEventListener("click", function(event) {
+        recognition.start();
+      });
+      recognition.onresult = function(event) {
+        var message = event.results[0][0].transcript;
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+          if (xhr.readyState === 4 && xhr.status === 200) {
+        var response = JSON.parse(xhr.responseText);
+            chatLogUser.innerHTML += "<p><strong>You:</strong> " + message + "</p>";
+            /*chatLog.innerHTML += "<p><strong>You:</strong> " + message + "</p>"; */
+           
+            chatLogUser.style.clear= "both";
+            chatLogUser.style.float= "left";
+
+
+
+
+
+             chatLog.innerHTML += "<p><strong>Bot:</strong> " + response.message + "</p>";
+             chatLog.style.clear= "both";
+            chatLog.style.float= "left";
+        const utterance = new SpeechSynthesisUtterance(response.message);
+                speechSynthesis.speak(utterance);
+          }
+        };
+      xhr.open("POST", "/chatbot");
+    xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.send(JSON.stringify({message}));
+};
+const stopButton = document.querySelector('#stop-btn');
+stopButton.addEventListener('click', () => {
+    speechSynthesis.cancel();
+});
+
+
+
+
+        // Event listener for send button click
+        sendButton.addEventListener('click', () => {
+            // Get the message from the input box
+            const message = inputBox.value;
+
+
+
+
+            // Send the message to the server using fetch
+            fetch('/chatbot', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({message})
+            })
+            .then(response => response.json())
+            .then(response => {
+                // Display the response in the output box
+                outputBox.innerHTML += `<p>${response.message}</p>`;
+
+
+
+
+                // Convert the response to speech using the Web Speech API
+                const utterance = new SpeechSynthesisUtterance(response.message);
+                speechSynthesis.speak(utterance);
+            });
+
+
+
+
+            // Clear the input box
+            inputBox.value = '';
+        });
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+

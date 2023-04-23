@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+
+
+<head>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(rgba(10, 0, 0, .6), rgba(0, 0, 0, .6)), url('https://s28151.pcdn.co/wp-content/uploads/2018/07/About-Clark-University-3-850x556.jpg') center center/cover no-repeat fixed;
+      padding: 20px;
+      background-size: cover;
+    }
+
+
+
+
+    input[type=text],
+    input[type=password] {
+      width: 100%;
+      padding: 12px 20px;
+      margin: 8px 0;
+      display: inline-block;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+
+
+    button {
+      background-color: #d21837;
+      color: white;
+      padding: 14px 20px;
+      margin: 8px 0;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+      border-radius: 10px;
+    }
+
+
+    button:hover {
+      opacity: 0.8;
+      border-radius: 10px;
+    }
+
+
+    .cancelbtn {
+      width: auto;
+      padding: 10px 18px;
+      background-color: #f44336;
+    }
+
+
+    .imgcontainer {
+      text-align: center;
+      margin: 24px 0 12px 0;
+      color: white;
+
+
+    }
+
+
+    img {
+      border-radius: 90%;
+      width: 300;
+      height: 200;
+    }
+
+
+    img.avatar {
+      width: 20%;
+      height: 10%;
+      border-radius: 50%;
+    }
+
+
+    .container {
+      padding: 16px;
+    }
+
+
+    span.psw {
+      float: right;
+      padding-top: 16px;
+    }
+
+
+    /*.whole {}*/
+
+
+    .names {
+      color: whitesmoke;
+    }
+
+
+    .placeholders {
+      background-color: rgb(226, 215, 215);
+    }
+
+
+    /*form {}*/
+
+
+
+
+    /* Change styles for span and cancel button on extra small screens */
+    @media screen and (max-width: 300px) {
+      span.psw {
+        display: block;
+        float: none;
+      }
+
+
+      .cancelbtn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+
+<body>
+  <div class="whole">
+    <!--<h2>Login Form</h2>-->
+
+
+    <form action="/profile" method="post">
+
+
+      <div class="imgcontainer">
+        <img
+          src="https://upload.wikimedia.org/wikipedia/en/thumb/0/0c/Clark_University_seal.svg/1200px-Clark_University_seal.svg.png"
+          alt="Avatar" class="avatar col-md-2">
+      </div>
+
+
+      <div class="">
+        <div class="container col-md-6">
+
+
+          <div>
+
+
+            <div>
+              <label for="uname" class="names"><i class="fa fa-user"></i> <b>Username</b></label>
+            </div>
+           
+            <div>
+              <input type="text" placeholder="Enter Username" id="uname" name="uname" class="placeholders" required>
+            </div>
+           
+          </div>
+           
+          <div>
+
+
+            <div>
+              <label for="psw" class="names"><i class="fa fa-lock"></i> <b>Password</b></label>
+            </div>
+ 
+            <div>
+              <input type="password" placeholder="Enter Password" id="psw" name="psw" class="placeholders" required>
+            </div>
+
+
+          </div>
+
+
+          <button id="submitBtn" type="submit" class="col-md-4">Login</button>
+          <label class="col-md-8">
+            <input type="checkbox" checked="checked" name="remember" class="names"> Remember me
+          </label>
+
+
+
+
+        </div>
+
+
+
+
+
+
+
+
+    </form>
+
+
+</body>
+
+
+</html>
+
